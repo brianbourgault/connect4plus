@@ -7,7 +7,7 @@ export default class App extends React.Component {
         columns: 7,
         moves: [],
         playerTurn: 'red',
-
+        totalMoves: 0,
     };
 
     resetBoard = () => {
@@ -53,6 +53,9 @@ export default class App extends React.Component {
 
     checkForWin = (x, y) => {
         const velocities = [{ x: 1, y: 0 }, { x: 0, y: 1 }, { x: -1, y: 1}, { x: 1, y: 1}];
+        if (this.state.totalMoves === 42){
+            this.setState({ winner: 'no one'});
+        }
         for (let dex = 0; dex < velocities.length; dex++){
             const element = velocities[dex];
             const winningMoves = this.getWinningMovesForVelocity(x, y, element.x, element.y);
@@ -73,6 +76,7 @@ export default class App extends React.Component {
             }
         }
         if (availableYPosition !== null){
+            this.state.totalMoves++;
             this.setState({ moves: this.state.moves.concat({ x, y: availableYPosition, player: playerTurn }), playerTurn: nextPlayerTurn }, () => this.checkForWin(x, availableYPosition, playerTurn));
         }
     }
