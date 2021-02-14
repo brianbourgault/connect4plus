@@ -1,6 +1,8 @@
 import './App.css'
 import React from 'react';
 
+// TODO: Implement react router dom in order to allow multiple pages with multiple games. 
+
 export default class App extends React.Component {
     state = {
         rows: 6,
