@@ -11,7 +11,7 @@ export default class App extends React.Component {
     };
 
     resetBoard = () => {
-        this.setState({ moves: [], winner: null });
+        this.setState({ moves: [], winner: null, totalMoves: 0 });
     }
 
     getPiece = (x, y) => {
@@ -53,7 +53,8 @@ export default class App extends React.Component {
 
     checkForWin = (x, y) => {
         const velocities = [{ x: 1, y: 0 }, { x: 0, y: 1 }, { x: -1, y: 1}, { x: 1, y: 1}];
-        if (this.state.totalMoves === 42){
+        const sizeOfBoard = (this.state.rows * this.state.columns);
+        if (this.state.totalMoves === sizeOfBoard){
             this.setState({ winner: 'no one'});
         }
         for (let dex = 0; dex < velocities.length; dex++){
@@ -133,7 +134,3 @@ const styles = {
         alignItems: 'center',
     }
 };
-
-const Connect4 = () => {
-    return;
-}

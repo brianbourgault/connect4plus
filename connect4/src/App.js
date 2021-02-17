@@ -27,6 +27,7 @@ export default class App extends React.Component {
             <Router>
                 <div>
                     <Navigation />
+                    <div style={{color: '#fff'}}>ignore this</div>
                     <Switch>
                         <Route path="/" component={Home} exact/>
                         <Route path="/connect-four" component={Connect4} exact/>

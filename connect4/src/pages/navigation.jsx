@@ -13,7 +13,8 @@ class Navigation extends React.Component {
         return (
             <nav className="nav-item">
                 <div className="title">
-                    <h1>Board Game Plus</h1>
+                    <h1>Board Game Plus<i class="fas fa-chess"></i></h1>
+                    
                 </div>
                 <div className="menu-icon" onClick={this.handleClick}>
                     <i className={this.state.clicked ? 'fas fa-times' : 'fas fa-bars'}></i>
