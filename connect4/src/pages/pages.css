@@ -10,7 +10,6 @@ html, body, #root {
   height: 75%;
   margin: 10%;
   text-align: center;
-
 }
   
 div {
@@ -32,7 +31,7 @@ div {
 }
 
 .nav-item {
-  background: linear-gradient(90deg, rgb(110, 94, 254) 0%, rgba(73,63,252,1) 100%);
+  background: #28527a;
   height: 80px;
   display: flex;
   justify-content: center;
@@ -74,7 +73,7 @@ div {
 }
 
 .nav-links:hover {
-  background-color: #6d76f7;
+  background-color: #28527a;
   border-radius: 4px;
   transition: all 0.2s ease-out;
 }
@@ -114,7 +113,7 @@ div {
   }
 
   .nav-menu.active {
-    background: #6668f4;
+    background: #28527a;
     left: 0;
     opacity: 1;
     transition: all 0.5s ease;
@@ -129,7 +128,7 @@ div {
   }
 
   .nav-links:hover {
-    background-color: #7577fa;
+    background-color: #28527a;
     border-radius: 0;
   }
 

@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import { Form, Button, Card } from 'react-bootstrap';
 import './pages.css';
 
 class Login extends React.Component {
     render(){
         return(
             <div>
-                login page waiting room
+                Login page waiting room
             </div>
         )
     }

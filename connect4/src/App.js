@@ -14,9 +14,8 @@ import Navigation from "./pages/navigation";
 import Connect4 from "./pages/connect4";
 import Home from "./pages/home";
 import TicTacToe from "./pages/tictactoe";
-import Login from "./pages/login";
+import Signup from "./pages/Signup";
 
-// TODO: Implement react router dom in order to allow multiple pages with multiple games. 
 
 export default class App extends React.Component {
 
@@ -32,7 +31,7 @@ export default class App extends React.Component {
                         <Route path="/" component={Home} exact/>
                         <Route path="/connect-four" component={Connect4} exact/>
                         <Route path="/tic-tac-toe" component={TicTacToe} exact></Route>
-                        <Route path="/sign-in" component={Login} exact></Route>
+                        <Route path="/sign-in" component={Signup} exact></Route>
                     </Switch>
                 </div>
             </Router>
