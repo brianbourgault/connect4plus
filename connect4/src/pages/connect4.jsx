@@ -91,7 +91,7 @@ export default class App extends React.Component {
             for (let column = 0; column < this.state.columns; column += 1){
                 const piece = this.getPiece(column, row);
                 columnViews.push(
-                    <div style={{ width: '7vw', height: '7vw', backgroundColor: '#00a8ff', display: 'flex', padding: 5, cursor: 'pointer' }}>
+                    <div style={{ width: '5vw', height: '5vw', backgroundColor: '#00a8ff', display: 'flex', padding: 5, cursor: 'pointer' }}>
                         <div onClick={() => {this.addMove(column, row)}} style={{ borderRadius: '50%', backgroundColor: 'white', flex: 1, display: 'flex' }}>
                             {piece ? <div style={{ backgroundColor: piece.player, flex: 1, borderRadius: '50%' }}/> : undefined}
                         </div>
