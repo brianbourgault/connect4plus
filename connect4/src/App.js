@@ -7,7 +7,7 @@ import {
     Link,
     useRouteMatch,
     useParams
-  } from "react-router-dom";
+} from "react-router-dom";
 
 //pages
 import Navigation from "./pages/navigation";
