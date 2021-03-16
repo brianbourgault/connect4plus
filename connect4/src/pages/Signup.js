@@ -2,14 +2,16 @@ import React, { useRef, useState } from 'react';
 import { Container, Form, Button, Card, Alert } from 'react-bootstrap';
 import { useAuth, AuthProvider } from '../contexts/AuthContext'
 import './pages.css';
+import { Link, useHistory } from "react-router-dom";
 
 export default function Signup() {
-    const emailRef = useRef();
-    const passwordRef = useRef();
-    const passwordConfirmRef = useRef();
-    const { signup } = useAuth();
+    const emailRef = useRef()
+    const passwordRef = useRef()
+    const passwordConfirmRef = useRef()
+    const { signup } = useAuth()
     const [error, setError] = useState('')
     const [loading, setLoading] = useState(false)
+    const history = useHistory()
 
     async function handleSubmit(e) {
         e.preventDefault()
@@ -55,7 +57,7 @@ export default function Signup() {
                             </Card.Body>
                         </Card>
                         <div className="w-100 text-center mt-2">
-                            Already a Member? Sign In.
+                            Already a Member? <Link to="/login">Log In</Link>.
                         </div>
                     </>
                 </div>

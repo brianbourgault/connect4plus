@@ -3,18 +3,18 @@ import React from 'react';
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    Link,
-    useRouteMatch,
-    useParams
+    Route
 } from "react-router-dom";
+import { AuthProvider } from './contexts/AuthContext'
+import PrivateRoute from './pages/PrivateRoute'
 
 //pages
 import Navigation from "./pages/navigation";
-import Connect4 from "./pages/connect4";
-import Home from "./pages/home";
+import Connect4 from "./pages/Connect4";
+import Dashboard from "./pages/Dashboard";
 import TicTacToe from "./pages/tictactoe";
 import Signup from "./pages/Signup";
+import Login from "./pages/Login";
 
 
 export default class App extends React.Component {
@@ -24,16 +24,17 @@ export default class App extends React.Component {
 
         return (
             <Router>
-                <div>
+                <AuthProvider>
                     <Navigation />
                     <div style={{color: '#fff'}}>ignore this</div>
                     <Switch>
-                        <Route path="/" component={Home} exact/>
-                        <Route path="/connect-four" component={Connect4} exact/>
-                        <Route path="/tic-tac-toe" component={TicTacToe} exact></Route>
-                        <Route path="/sign-in" component={Signup} exact></Route>
+                        <PrivateRoute path="/" component={Dashboard} exact />
+                        <Route path="/connect-four" component={Connect4} exact />
+                        <Route path="/tic-tac-toe" component={TicTacToe} exact />
+                        <Route path="/signup" component={Signup} exact />
+                        <Route path="/login" component={Login} exact />
                     </Switch>
-                </div>
+                </AuthProvider>
             </Router>
             
         )
