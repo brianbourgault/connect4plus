@@ -15,6 +15,9 @@ import Dashboard from "./pages/Dashboard";
 import TicTacToe from "./pages/tictactoe";
 import Signup from "./pages/Signup";
 import Login from "./pages/Login";
+import ForgotPassword from "./pages/ForgotPassword";
+import UpdateProfile from "./pages/UpdateProfile";
+import Home from "./pages/Home";
 
 
 export default class App extends React.Component {
@@ -26,13 +29,15 @@ export default class App extends React.Component {
             <Router>
                 <AuthProvider>
                     <Navigation />
-                    <div style={{color: '#fff'}}>ignore this</div>
                     <Switch>
-                        <PrivateRoute path="/" component={Dashboard} exact />
-                        <Route path="/connect-four" component={Connect4} exact />
-                        <Route path="/tic-tac-toe" component={TicTacToe} exact />
-                        <Route path="/signup" component={Signup} exact />
-                        <Route path="/login" component={Login} exact />
+                        <PrivateRoute path="/dashboard" component={Dashboard} exact />
+                        <PrivateRoute path="/update-profile" component={UpdateProfile} />
+                        <Route path="/" component={Home} exact />
+                        <Route path="/connect-four" component={Connect4} />
+                        <Route path="/tic-tac-toe" component={TicTacToe} />
+                        <Route path="/signup" component={Signup} />
+                        <Route path="/login" component={Login} />
+                        <Route path="/forgot-password" component={ForgotPassword}  />
                     </Switch>
                 </AuthProvider>
             </Router>
