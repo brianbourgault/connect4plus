@@ -9,7 +9,7 @@ import { AuthProvider } from './contexts/AuthContext'
 import PrivateRoute from './pages/PrivateRoute'
 
 //pages
-import Navigation from "./pages/navigation";
+import Navigation from "./pages/Navigation";
 import Connect4 from "./pages/Connect4";
 import Dashboard from "./pages/Dashboard";
 import TicTacToe from "./pages/tictactoe";
