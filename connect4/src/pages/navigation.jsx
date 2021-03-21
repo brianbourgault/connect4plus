@@ -19,7 +19,7 @@ export default class Navigation extends React.Component {
                 </div>
                 <ul className={this.state.clicked ? 'nav-menu active' : 'nav-menu'}>
                     <li><Link className="nav-links" to="/">Home</Link></li>
-                    <li><Link className="nav-links" to="/connect-four">Connect 4</Link></li>
+                    <li><Link className="nav-links" to="/connect-four-landing-page">Connect 4</Link></li>
                     <li><Link className="nav-links" to="/tic-tac-toe">Tic Tac Toe</Link></li>
                     <li><Link className="nav-links" to="/login">Log In</Link></li>
                 </ul>

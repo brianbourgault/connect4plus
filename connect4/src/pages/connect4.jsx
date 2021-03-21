@@ -85,6 +85,7 @@ export default class App extends React.Component {
     renderBoard() {
         const { rows, columns, winner } = this.state;
         const rowViews = [];
+        
 
         for (let row = 0; row < this.state.rows; row += 1){
             const columnViews = [];
@@ -105,15 +106,21 @@ export default class App extends React.Component {
 
         return(
             <div style={{ backgroundColor: 'red', display: 'flex', flexDirection: 'column' }}>
-                {winner && <div onClick={this.resetBoard} style={{ position: 'absolute', left: 0, right: 0, bottom: 0, top: 0, zIndex: 3, backgroundColor: 'rgba(0, 0, 0, .5)', display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#fff', fontWeight: '200', fontSize: '8vw'}}>{`${winner} wins`}</div>}
+                {winner && <div onClick={this.resetBoard} style={{ position: 'absolute', left: 0, right: 0, bottom: 0, top: 0, zIndex: 3, backgroundColor: 'rgba(0, 0, 0, .5)', display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#fff', fontWeight: '200', fontSize: '7vw'}}>{`${winner} wins`}</div>}
                 {rowViews}
             </div>
         );
     }
 
+    
+
     render() {
         const { style } = this.props;
         const { playerTurn } = this.state;
+        const { playerOneName } = require('./Connect4LandingPage')
+        const { playerTwoName } = require('./Connect4LandingPage')
+        console.log(playerOneName)
+        console.log(playerTwoName)
 
         return (
             <div className="board" style={style ? Object.assign({ backgroundColor: playerTurn }, styles.container, style) : styles.container}>
