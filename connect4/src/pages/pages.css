@@ -1,156 +1,173 @@
 html, body, #root {
-  width: 100%;
-  height: 100%;
-  padding: 0;
-  margin: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
 }
 
 .home-text {
-  width: 75%;
-  height: 75%;
-  margin: 10%;
-  text-align: center;
+    width: 75%;
+    height: 75%;
+    margin: 10%;
+    text-align: center;
 }
-  
+
 div {
-  position: relative;
+    position: relative;
 }
 
 .board {
-  top: 10;
+    top: 10;
+}
+
+.game-player-names {
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-bottom: 200px;
+    width: 15vw;
+}
+
+.right-player-name {
+    position:absolute;
+    right: 0px;
+}
+
+.left-player-name {
+    position:absolute;
+    left: 0px;
 }
 
 .navbar {
-  padding: 0 0 4.5rem;
+    padding: 0 0 4.5rem;
 }
 
 .navbar-brand {
-  font-family: "Ubuntu";
-  font-size: 2.5rem;
-  font-weight: bold;
+    font-family: "Ubuntu";
+    font-size: 2.5rem;
+    font-weight: bold;
 }
 
 .nav-item {
-  background: #28527a;
-  height: 80px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.2rem;
+    background: #28527a;
+    height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
 }
 
 .nav-link {
-  font-family: "Montserrat";
-  font-weight: 300;
-  font-size: 1.2rem;
+    font-family: "Montserrat";
+    font-weight: 300;
+    font-size: 1.2rem;
 }
 
 .title {
-  color: #fff;
-  justify-self: start;
-  margin-left: 20px;
-  cursor: pointer;
-  font-family: "Montserrat";
-  font-weight: bold;
-  font-size: 1.5rem;
+    color: #fff;
+    justify-self: start;
+    margin-left: 20px;
+    cursor: pointer;
+    font-family: "Montserrat";
+    font-weight: bold;
+    font-size: 1.5rem;
 }
 
 .nav-menu {
-  display: grid;
-  grid-template-columns: repeat(5, auto);
-  grid-gap: 10px;
-  list-style: none;
-  text-align: center;
-  width: 70vw;
-  justify-content: end; 
-  margin-right: 2rem;
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    grid-gap: 10px;
+    list-style: none;
+    text-align: center;
+    width: 70vw;
+    justify-content: end; 
+    margin-right: 2rem;
 }
 
 .nav-links {
-  color: white;
-  text-decoration: none;
-  padding: 0.5rem, 1rem;
+    color: white;
+    text-decoration: none;
+    padding: 0.5rem, 1rem;
 }
 
 .nav-links:hover {
-  background-color: #ffffff;
-  border-radius: 4px;
-  transition: all 0.2s ease-out;
+    background-color: #ffffff;
+    border-radius: 4px;
+    transition: all 0.2s ease-out;
 }
 
 .fa-bars {
-  color: #fff;
+    color: #fff;
 }
 
 .fa-chess {
-  margin-left: 10px;
+    margin-left: 10px;
 }
 
 .menu-icon {
-  display: none;
+    display: none;
 }
 
 .pipeline {
-  color: #fff;
-  width: 10px;
+    color: #fff;
+    width: 10px;
 }
 
 @media screen and (max-width: 960px) {
-  .nav-item {
-    position: relative;
-  }
+    .nav-item {
+        position: relative;
+    }
 
-  .nav-menu {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 500px;
-    position: absolute;
-    top: 80px;
-    left: -100%;
-    opacity: 1;
-    transition: all 0.5s ease;
-  }
+    .nav-menu {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 500px;
+        position: absolute;
+        top: 80px;
+        left: -100%;
+        opacity: 1;
+        transition: all 0.5s ease;
+    }
 
-  .nav-menu.active {
-    background: #28527a;
-    left: 0;
-    opacity: 1;
-    transition: all 0.5s ease;
-    z-index: 1;
-  }
+    .nav-menu.active {
+        background: #28527a;
+        left: 0;
+        opacity: 1;
+        transition: all 0.5s ease;
+        z-index: 1;
+    }
 
-  .nav-links {
-    text-align: center;
-    padding: 2rem;
-    width: 100%;
-    display: table;
-  }
+    .nav-links {
+        text-align: center;
+        padding: 2rem;
+        width: 100%;
+        display: table;
+    }
 
-  .nav-links:hover {
-    background-color: #28527a;
-    border-radius: 0;
-  }
+    .nav-links:hover {
+        background-color: #28527a;
+        border-radius: 0;
+    }
 
-  .title {
-    position: absolute;
-    top: 0;
-    left: 0;
-    transform: translate(25%, 50%);
-  }
+    .title {
+        position: absolute;
+        top: 0;
+        left: 0;
+        transform: translate(25%, 50%);
+    }
 
-  .menu-icon {
-    display: block;
-    position: absolute;
-    top: 0;
-    right: 0;
-    transform: translate(-100%, 60%);
-    font-size: 1.8rem;
-    cursor: pointer;
-  }
+    .menu-icon {
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translate(-100%, 60%);
+        font-size: 1.8rem;
+        cursor: pointer;
+    }
 
-  .fa-times {
-    color: #fff;
-    font-size: 2rem;
-  }
+    .fa-times {
+        color: #fff;
+        font-size: 2rem;
+    }
 }

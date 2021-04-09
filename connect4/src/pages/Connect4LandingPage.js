@@ -1,7 +1,10 @@
 import React, { useRef } from 'react'
 import { Form, Button, Container, Card } from 'react-bootstrap'
 import { useHistory } from "react-router-dom";
+import PlayerNames from './PlayerNames'
 import './pages.css'
+
+
 
 export default function Connect4LandingPage() {
     const playerOneRef = useRef();
@@ -11,6 +14,8 @@ export default function Connect4LandingPage() {
 
     function handleSubmit(e) {
         e.preventDefault()
+        PlayerNames.playerOneName = playerOneRef.current.value
+        PlayerNames.playerTwoName = playerTwoRef.current.value
         history.push('/connect-four')
     }
 
