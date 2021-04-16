@@ -1,162 +1,201 @@
-import React from 'react';
-import PlayerNames from './PlayerNames'
-//import { useHistory } from 'react-router-dom'
-import './pages.css';
+import React from "react";
+import PlayerNames from "./PlayerNames";
+import { db } from "../firebase";
+// import { useHistory } from 'react-router-dom'
+import "./pages.css";
 
-class App extends React.Component {
-    state = {
-        rows: 6,
-        columns: 7,
+function createGameInFirebase() {
+    return db.collection("games").doc().set({
         moves: [],
-        playerTurn: 'red',
+        playerTurn: "Red",
+        gameSelected: false,
+        winner: "",
         totalMoves: 0,
-    };
+        player1: PlayerNames.playerOneName,
+        player2: PlayerNames.playerTwoName,
+    });
+}
 
-    resetBoard = () => {
-        this.setState({ moves: [], winner: null, totalMoves: 0, playerTurn: 'red' });
+function Hole(props) {
+    return (
+        <div className="Hole">
+            <div className={props.value}></div>
+        </div>
+    );
+}
+
+function Slat(props) {
+    return (
+        <div className="Slat" onClick={() => props.handleClick()}>
+            {[...Array(props.holes.length)].map((x, j) => (
+                <Hole key={j} value={props.holes[j]}></Hole>
+            ))}
+        </div>
+    );
+}
+class Board extends React.Component {
+    constructor() {
+        super();
+        this.state = {
+            boardState: new Array(7).fill(new Array(6).fill(null)),
+            playerTurn: "Red",
+            gameSelected: false,
+            winner: "",
+            totalMoves: 0,
+        };
     }
 
-    getPiece = (x, y) => {
-        const list = this.state.moves.filter((item) => {
-            return (item.x === x && item.y === y);
+    startGame() {
+        createGameInFirebase();
+        this.setState({
+            gameSelected: true,
+            boardState: new Array(7).fill(new Array(6).fill(null)),
+            totalMoves: 0,
         });
-        return list[0];
     }
 
-    getWinningMovesForVelocity = (xPosition, yPosition, xVelocity, yVelocity) => {
-        const winningMoves = [{ x: xPosition, y: yPosition}];
-        const player = this.getPiece(xPosition, yPosition).player;
-
-        for (let delta = 1; delta <= 3; delta += 1){
-            const checkX = xPosition + xVelocity * delta;
-            const checkY = yPosition + yVelocity * delta;
-
-            const checkPiece = this.getPiece(checkX, checkY);
-            if (checkPiece && checkPiece.player === player){
-                winningMoves.push({ x: checkX, y: checkY });
-            } else {
-                break;
-            }
-        }
-        for (let delta = -1; delta >= -3; delta -= 1){
-            const checkX = xPosition + xVelocity * delta;
-            const checkY = yPosition + yVelocity * delta;
-
-            const checkPiece = this.getPiece(checkX, checkY);
-            if (checkPiece && checkPiece.player === player){
-                winningMoves.push({ x: checkX, y: checkY });
-            } else {
-                break;
-            }
-        }
-
-        return winningMoves;
-    }
-
-    checkForWin = (x, y) => {
-        const velocities = [{ x: 1, y: 0 }, { x: 0, y: 1 }, { x: -1, y: 1}, { x: 1, y: 1}];
-        const sizeOfBoard = (this.state.rows * this.state.columns);
-        if (this.state.totalMoves === sizeOfBoard){
-            this.setState({ winner: 'no one'});
-        }
-        for (let dex = 0; dex < velocities.length; dex++){
-            const element = velocities[dex];
-            const winningMoves = this.getWinningMovesForVelocity(x, y, element.x, element.y);
-            if (winningMoves.length > 3) {
-                this.setState({ winner: this.getPiece(x,y).player, winningMoves });
-            }
+    makeMove(slatID) {
+        const boardCopy = this.state.boardState.map(function (arr) {
+            return arr.slice();
+        });
+        if (boardCopy[slatID].indexOf(null) !== -1) {
+            let newSlat = boardCopy[slatID].reverse();
+            newSlat[newSlat.indexOf(null)] = this.state.playerTurn;
+            newSlat.reverse();
+            this.setState({
+                playerTurn: this.state.playerTurn === "Red" ? "Yellow" : "Red",
+                boardState: boardCopy,
+                totalMoves: this.state.totalMoves + 1,
+            });
         }
     }
 
-    addMove = (x, y) => {
-        const { playerTurn } = this.state;
-        const nextPlayerTurn = playerTurn === 'red' ? 'yellow' : 'red';
-        let availableYPosition = null;
-        for (let position = this.state.rows - 1; position >= 0; position--) {
-            if (!this.getPiece(x, position)) {
-                availableYPosition = position;
-                break;
-            }
-        }
-        if (availableYPosition !== null){
-            //if draw doesn't work this is why
-            this.setState({ totalMoves: this.state.totalMoves + 1});
-            this.setState({ moves: this.state.moves.concat({ x, y: availableYPosition, player: playerTurn }), playerTurn: nextPlayerTurn }, () => this.checkForWin(x, availableYPosition, playerTurn));
+    /*Only make moves if winner doesn't exist*/
+    handleClick(slatID) {
+        if (this.state.winner === "") {
+            this.makeMove(slatID);
         }
     }
 
-    renderBoard() {
-        const { winner } = this.state;
-        const rowViews = [];
-        
+    /*check the winner and make AI move IF game is in AI mode*/
+    componentDidUpdate() {
+        let winner = checkWinner(this.state.boardState, this.state.totalMoves);
+        if (this.state.winner !== winner) {
+            this.setState({ winner: winner });
+        } else {
+            if (
+                this.state.gameMode === "ai" &&
+                this.state.playerTurn === "Yellow"
+            ) {
+                let validMove = -1;
+                while (validMove === -1) {
+                    let slat = Math.floor(Math.random() * 7);
+                    if (this.state.boardState[slat].indexOf(null) !== -1) {
+                        validMove = slat;
+                    } else {
+                        validMove = -1;
+                    }
+                }
+                this.makeMove(validMove);
+            }
+        }
+    }
 
-        for (let row = 0; row < this.state.rows; row += 1){
-            const columnViews = [];
-            for (let column = 0; column < this.state.columns; column += 1){
-                const piece = this.getPiece(column, row);
-                columnViews.push(
-                    <div style={{ width: '5vw', height: '5vw', backgroundColor: '#00a8ff', display: 'flex', padding: 5, cursor: 'pointer' }}>
-                        <div onClick={() => {this.addMove(column, row)}} style={{ borderRadius: '50%', backgroundColor: 'white', flex: 1, display: 'flex' }}>
-                            {piece ? <div style={{ backgroundColor: piece.player, flex: 1, borderRadius: '50%' }}/> : undefined}
-                        </div>
+    render() {
+        /*If a winner exists display the name*/
+        let winnerMessageStyle;
+        if (this.state.winner !== "") {
+            winnerMessageStyle = "winnerMessage appear";
+        } else {
+            winnerMessageStyle = "winnerMessage";
+        }
+
+        /*Contruct slats allocating column from board*/
+        let slats = [...Array(this.state.boardState.length)].map((x, i) => (
+            <Slat
+                key={i}
+                holes={this.state.boardState[i]}
+                handleClick={() => this.handleClick(i)}
+            ></Slat>
+        ));
+
+        return (
+            <div>
+                {this.state.gameSelected && (
+                    <div className="Board">{slats}</div>
+                )}
+                <div className={winnerMessageStyle}>{this.state.winner}</div>
+                {(!this.state.gameSelected || this.state.winner !== "") && (
+                    <div>
+                        <button onClick={() => this.startGame()}>
+                            Start Game
+                        </button>
+                        {/* <button onClick={() => this.startGame("ai")}>
+                            Play AI
+                        </button> */}
                     </div>
-                );
-            }
-            rowViews.push(
-                <div style={{ display: 'flex', flexDirection: 'row'}}>{columnViews}</div>
-            );
-        }
-
-        return(
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-                {winner && <div onClick={this.resetBoard} style={{ position: 'absolute', left: 0, right: 0, bottom: 0, top: 0, zIndex: 3, backgroundColor: 'rgba(0, 0, 0, .5)', display: 'flex', justifyContent: 'center', alignItems: 'center', color: '#fff', fontWeight: '200', fontSize: '7vw'}}>{`${winner} wins`}</div>}
-                {rowViews}
+                )}
             </div>
         );
     }
+}
 
-    
-
+class App extends React.Component {
     render() {
-        const { style } = this.props;
-        const { playerTurn } = this.state;
-
         return (
-            <div className="board" style={style ? Object.assign({ backgroundColor: playerTurn }, styles.container, style) : styles.container}>
-                <div className="game-player-names">
-                    <h2 className="left-player-name">
-                        {PlayerNames.playerOneName}
-                    </h2>
-                    <p className="left-player-name" style={{ top: '50px' }}>
-                        Red
-                        1500    
-                    </p>
-                </div>
-                <div>
-                    {this.renderBoard()}
-                </div>
-                <div className="game-player-names" style={{alignItems: 'right' }}>
-                    <h2 className="right-player-name">
-                        {PlayerNames.playerTwoName}
-                    </h2>
-                    <p className="right-player-name" style={{ top: '50px' }}>
-                        Yellow
-                        1500    
-                    </p>
+            <div className="App">
+                <div className="Game">
+                    <h1></h1>
+                    <Board></Board>
                 </div>
             </div>
-        )
+        );
     }
 }
 
-const styles = {
-    container: {
-        height: '100%',
-        padding: 5, 
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-    }
-};
+function checkLine(a, b, c, d) {
+    return a !== null && a === b && a === c && a === d;
+}
 
-export default App
+function checkWinner(bs, tm) {
+    if (tm === 42) {
+        return "No one wins!";
+    }
+    for (let c = 0; c < 7; c++)
+        for (let r = 0; r < 4; r++)
+            if (checkLine(bs[c][r], bs[c][r + 1], bs[c][r + 2], bs[c][r + 3]))
+                return bs[c][r] + " wins!";
+
+    for (let r = 0; r < 6; r++)
+        for (let c = 0; c < 4; c++)
+            if (checkLine(bs[c][r], bs[c + 1][r], bs[c + 2][r], bs[c + 3][r]))
+                return bs[c][r] + " wins!";
+
+    for (let r = 0; r < 3; r++)
+        for (let c = 0; c < 4; c++)
+            if (
+                checkLine(
+                    bs[c][r],
+                    bs[c + 1][r + 1],
+                    bs[c + 2][r + 2],
+                    bs[c + 3][r + 3]
+                )
+            )
+                return bs[c][r] + " wins!";
+
+    for (let r = 0; r < 4; r++)
+        for (let c = 3; c < 6; c++)
+            if (
+                checkLine(
+                    bs[c][r],
+                    bs[c - 1][r + 1],
+                    bs[c - 2][r + 2],
+                    bs[c - 3][r + 3]
+                )
+            )
+                return bs[c][r] + " wins!";
+
+    return "";
+}
+
+export default App;

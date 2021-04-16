@@ -13,7 +13,6 @@ export function AuthProvider({ children }) {
     const [loading, setLoading] = useState(true);
 
     function signup(email, password, passedUsername) {
-        console.log(passedUsername);
         auth.createUserWithEmailAndPassword(email, password).then((cred) => {
             return db.collection("users").doc(cred.user.uid).set({
                 username: passedUsername,
