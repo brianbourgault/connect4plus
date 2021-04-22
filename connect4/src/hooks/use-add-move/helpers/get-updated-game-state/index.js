@@ -24,8 +24,6 @@ export default function GetUpdatedGameState({
         });
     }
 
-    console.log("availableYPosition value: " + availableYPosition);
-
     const outcome = checkBoard(
         newMoves,
         x,

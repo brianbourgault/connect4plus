@@ -1,47 +1,67 @@
-import React, { useRef, useState } from 'react';
-import { Container, Form, Button, Card, Alert } from 'react-bootstrap';
-import { useAuth, AuthProvider } from '../contexts/AuthContext'
-import './pages.css';
+import React, { useRef, useState } from "react";
+import { Container, Form, Card, Alert } from "react-bootstrap";
+import { Button } from "../components/styles/button/index";
+import { useAuth, AuthProvider } from "../contexts/AuthContext";
+import "./pages.css";
 import { Link } from "react-router-dom";
 
 export default function ForgotPassword() {
     const emailRef = useRef();
     const { resetPassword } = useAuth();
-    const [error, setError] = useState('')
-    const [message, setMessage] = useState('')
-    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState("");
+    const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState(false);
 
     async function handleSubmit(e) {
-        e.preventDefault()
+        e.preventDefault();
 
         try {
-            setMessage('')
-            setError('')
-            setLoading(true)
-            await resetPassword(emailRef.current.value)
-            setMessage('Check your inbox for further instruction')
+            setMessage("");
+            setError("");
+            setLoading(true);
+            await resetPassword(emailRef.current.value);
+            setMessage("Check your inbox for further instruction");
         } catch {
-            setError('Failed to reset pasword')
+            setError("Failed to reset pasword");
         }
-        setLoading(false)
+        setLoading(false);
     }
 
     return (
         <AuthProvider>
-            <Container className="d-flex align-items-center justify-content-center" style={{ minHeight: "100vh" }}>
+            <Container
+                className="d-flex align-items-center justify-content-center"
+                style={{ minHeight: "75vh" }}
+            >
                 <div className="w-100" style={{ maxWidth: "400px" }}>
                     <>
                         <Card>
                             <Card.Body>
-                                <h2 className="text-center mb-4">Reset Password</h2>
-                                {error && <Alert variant="danger">{error}</Alert>}
-                                {message && <Alert variant="success">{message}</Alert>}
+                                <h2 className="text-center mb-4">
+                                    Reset Password
+                                </h2>
+                                {error && (
+                                    <Alert variant="danger">{error}</Alert>
+                                )}
+                                {message && (
+                                    <Alert variant="success">{message}</Alert>
+                                )}
                                 <Form onSubmit={handleSubmit}>
                                     <Form.Group id="email">
                                         <Form.Label>Email</Form.Label>
-                                        <Form.Control type="email" ref={emailRef} required />
+                                        <Form.Control
+                                            type="email"
+                                            ref={emailRef}
+                                            required
+                                        />
                                     </Form.Group>
-                                    <Button disabled={loading} className="w-100" type="submit">Reset</Button>
+                                    <Button
+                                        disabled={loading}
+                                        className="w-100"
+                                        type="submit"
+                                    >
+                                        Reset
+                                    </Button>
                                 </Form>
                                 <div className="w-100 text-center mt-2">
                                     <Link to="/login">Log In</Link>
@@ -55,5 +75,5 @@ export default function ForgotPassword() {
                 </div>
             </Container>
         </AuthProvider>
-    )
+    );
 }

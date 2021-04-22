@@ -6,7 +6,7 @@ import { H1 } from "../../components/styles/h1";
 import useClearBoard from "../../hooks/use-clear-board";
 import useRoom from "../../hooks/use-room";
 
-import Connect4 from "./Board/Connect4TestingAgain";
+import Connect4 from "./Board/Connect4Board";
 import PlayerDisplay from "./player-display";
 import { Container } from "./styles";
 
@@ -18,7 +18,7 @@ const Room = () => {
     if (isFetching) return <H1>Loading Room...</H1>;
     if (!room) return <H1>No Room Found</H1>;
 
-    const { message, startingTurn } = room;
+    const { message, startingTurn, isGameFinished } = room;
 
     async function handleClear() {
         await clearBoard(startingTurn);
@@ -34,9 +34,15 @@ const Room = () => {
             <Connect4 />
             <PlayerDisplay player="Red" />
             <PlayerDisplay player="Yellow" />
-            <Button disabled={isClearing} onClick={handleClear}>
-                Clear{isClearing ? "ing" : ""} Board
-            </Button>
+            {isGameFinished ? (
+                <Button disabled={isClearing} onClick={handleClear}>
+                    Start{isClearing ? "ing" : ""} New Game
+                </Button>
+            ) : (
+                <Button disabled={isClearing} onClick={handleClear}>
+                    Clear{isClearing ? "ing" : ""} Board
+                </Button>
+            )}
             <Button onClick={goBack}>Back to Home</Button>
         </Container>
     );

@@ -7,6 +7,7 @@ const theme = {
         lightGray: "lightgray",
         white: "white",
     },
+    fontFamily: "Montserrat",
     transition: "0.3s",
 };
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { Button } from "../../components/styles/button";
 import { H1 } from "../../components/styles/h1";
@@ -6,6 +6,7 @@ import { Error as ErrComponent } from "../../components/styles/error";
 import Field from "../../components/field";
 import validateEmail from "../../helpers/validate-email";
 import { useAuth } from "../../contexts/AuthContext";
+import { GlobalContext } from "../../App";
 import { auth, db } from "../../firebase";
 
 const SignupPage = () => {
@@ -19,6 +20,7 @@ const SignupPage = () => {
     const [confirmPasswordErr, setConfirmPasswordErr] = useState();
     const [firebaseErr, setFirebaseErr] = useState();
     const [isSigningUp, setIsSigningUp] = useState(false);
+    let { user, updateUserSession } = useContext(GlobalContext);
 
     useEffect(() => {
         if (currentUser) history.push("/");
@@ -56,18 +58,21 @@ const SignupPage = () => {
             );
 
             if (!response.user) throw new Error("Something went wrong!");
+            localStorage.setItem("authUser", JSON.stringify(response.user));
+            updateUserSession(response.user);
 
             await db
                 .collection("users")
                 .doc(response.user.uid)
                 .set({
-                    displayName:
-                        response.user.email?.split("@")[0] ?? "<UNKNOWN>",
+                    displayName: response.user.email?.split("@")[0],
+                    rating: 1000,
                 });
             history.push("/");
         } catch (ex) {
             setFirebaseErr(ex.message);
             setIsSigningUp(false);
+            updateUserSession(null);
         }
     }
 

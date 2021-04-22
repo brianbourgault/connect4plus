@@ -1,41 +1,58 @@
 import "./App.css";
-import React from "react";
+import React, { createContext, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
-// import PrivateRoute from "./pages/PrivateRoute";
 
 //pages
-import Navigation from "./pages/Navbar/Navigation";
-// import Connect4 from "./pages/Room/Board/Connect4TestingAgain";
+import Navigation from "./pages/Navbar/Navbar";
 import Room from "./pages/Room";
-//import Rooms from "./pages/Rooms";
-import Home from "./pages/Connect4LandingPage";
+import Home from "./pages/home/Home";
+import Connect4Home from "./pages/Connect4Home";
 import Rooms from "./pages/rooms";
-// import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/profile";
 import TicTacToe from "./pages/tictactoe";
 import Signup from "./pages/Signup/index";
 import Login from "./pages/Login/index";
-// import ForgotPassword from "./pages/ForgotPassword";
-// import UpdateProfile from "./pages/UpdateProfile";
+import ForgotPassword from "./pages/ForgotPassword";
 
-export default class App extends React.Component {
-    render() {
-        return (
+export const GlobalContext = createContext(null);
+
+export default function App() {
+    let [user, setUser] = useState(getCurrentUser());
+
+    function updateUserSession(user) {
+        setUser(user);
+    }
+
+    function getCurrentUser() {
+        return localStorage.getItem("authUser");
+    }
+
+    return (
+        <GlobalContext.Provider value={{ user, updateUserSession }}>
             <Router>
                 <AuthProvider>
                     <Navigation />
                     <Switch>
                         <Route path="/u/:userId" component={Profile} />
-                        <Route exact path="/r" component={Rooms} exact />
+                        <Route exact path="/r" component={Rooms} />
                         <Route path="/" component={Home} exact />
+                        <Route
+                            path="/connectfour"
+                            component={Connect4Home}
+                            exact
+                        />
                         <Route path="/r/:roomId" component={Room} />
                         <Route path="/tic-tac-toe" component={TicTacToe} />
                         <Route path="/signup" component={Signup} />
                         <Route path="/login" component={Login} />
+                        <Route
+                            path="/forgot-password"
+                            component={ForgotPassword}
+                        />
                     </Switch>
                 </AuthProvider>
             </Router>
-        );
-    }
+        </GlobalContext.Provider>
+    );
 }

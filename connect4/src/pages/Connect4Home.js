@@ -4,7 +4,6 @@ import { H1 } from "../components/styles/h1";
 import { Button } from "../components/styles/button";
 import Logout from "../components/logout";
 import useCreateRoom from "../hooks/use-create-room";
-// import { useCurrentUser } from "../hooks/use-current-user";
 import { useAuth } from "../contexts/AuthContext";
 import "./pages.css";
 

@@ -19,7 +19,7 @@ export default function checkBoard(
             checkWin({ newMoves, x, y, playerTurn, room })
         )
             return "YELLOWWIN";
-        if (totalMoves >= 42) return "DRAW";
+        if (totalMoves >= 41) return "DRAW";
     }
 
     return "NONE";

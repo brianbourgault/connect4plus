@@ -3,7 +3,7 @@ Next steps for the website:
 -Add elo rating to games
 -Add elo leaderboard
 -add elo to user profiles
--add more games
+-add tic tac toe
 -make a better home page
 -add matchmaking based on elo rating
 -make the site prettier

@@ -8,10 +8,10 @@ import useUpdateProfile from "../../../hooks/use-update-profile";
 const Content = ({ user }) => {
     const { userId } = useParams();
     const { isUpdating, updateProfile } = useUpdateProfile(userId);
-    const currentUser = useAuth();
+    const { currentUser } = useAuth();
     const [displayName, setDisplayName] = useState(user.displayName);
 
-    const isCurrentUser = useMemo(() => currentUser?.id === userId, [
+    const isCurrentUser = useMemo(() => currentUser?.uid === userId, [
         currentUser,
         userId,
     ]);
@@ -39,6 +39,7 @@ const Content = ({ user }) => {
                     Updat{isUpdating ? "ing" : "e"}
                 </Button>
             )}
+            {isCurrentUser && <div>Rating: {user.rating}</div>}
         </>
     );
 };

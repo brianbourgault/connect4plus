@@ -1,38 +1,49 @@
-import React, { useContext, useEffect, useState } from "react";
-import Navbar from "react-bootstrap/Navbar";
+import React, { useState, useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Nav from "react-bootstrap/Nav";
-import { Link, useHistory } from "react-router-dom";
-import { GlobalContext } from "../../NewApp";
-import logo from "../../assets/connect-four-logo.png";
+import Navbar from "react-bootstrap/Navbar";
+import { useAuth } from "../../contexts/AuthContext";
+import "../pages.css";
+import { GlobalContext } from "../../App";
 
-export default function NavbarMenu(props) {
+export default function Navigation() {
+    let [clicked, setClicked] = useState(false);
+    const { logout } = useAuth();
     let { user, updateUserSession } = useContext(GlobalContext);
 
     useEffect(() => {
         let authUser = JSON.parse(localStorage.getItem("authUser"));
-        console.log("From useEffect - setting user to: ", authUser);
         updateUserSession(authUser);
     }, []);
 
+    function handleClick() {
+        setClicked(!clicked);
+    }
+
     function signOut() {
+        logout();
         updateUserSession(null);
         localStorage.removeItem("authUser");
         window.location.reload();
     }
 
     function getNavLinks() {
-        // console.log("from getAuthLinks() - rendering and user is", user);
         if (user != null) {
             return (
-                <Nav className="ml-auto pr-5 d-flex flex-row">
-                    <Nav.Link disabled style={{ color: "grey" }}>
+                <Nav>
+                    <Nav.Link
+                        as={Link}
+                        to={`/u/${user.uid}`}
+                        className="nav-links"
+                    >
                         {" "}
-                        Welcome {user.displayName}
+                        Welcome {user.email}
                     </Nav.Link>
                     <Nav.Link
                         as={Link}
                         to="/"
                         onClick={async () => await signOut()}
+                        className="nav-links"
                     >
                         Sign Out
                     </Nav.Link>
@@ -40,11 +51,11 @@ export default function NavbarMenu(props) {
             );
         } else {
             return (
-                <Nav className="m1-auto pr-5 d-flex flex-row">
-                    <Nav.Link as={Link} to="/login">
+                <Nav>
+                    <Nav.Link className="nav-links" as={Link} to="/login">
                         Login
                     </Nav.Link>
-                    <Nav.Link as={Link} to="/register">
+                    <Nav.Link className="nav-links" as={Link} to="/signup">
                         Sign Up
                     </Nav.Link>
                 </Nav>
@@ -53,21 +64,27 @@ export default function NavbarMenu(props) {
     }
 
     return (
-        <Navbar bg="light" expands="lg">
+        <nav className="nav-item">
             <Navbar.Brand as={Link} to="/">
-                <span className="d-flex flex-column">
-                    <span style={{ fontSize: "1.50rem" }}>Connect Four</span>
-                    <img
-                        src={logo}
-                        style={{
-                            width: "120px",
-                            height: "30px",
-                        }}
-                        alt="Connect Four"
-                    />
-                </span>
+                <h1 className="title">
+                    Board Game Plus<i className="fas fa-chess"></i>
+                </h1>
+                <div className="menu-icon" onClick={handleClick}>
+                    <i className={clicked ? "fas fa-times" : "fas fa-bars"}></i>
+                </div>
             </Navbar.Brand>
-            {getNavLinks()}
-        </Navbar>
+            <Nav className={clicked ? "nav-menu active" : "nav-menu"}>
+                <Nav.Link className="nav-links" as={Link} to="/">
+                    Home
+                </Nav.Link>
+                <Nav.Link className="nav-links" as={Link} to="/connectfour">
+                    Connect 4
+                </Nav.Link>
+                <Nav.Link className="nav-links" as={Link} to="/tic-tac-toe">
+                    Tic Tac Toe
+                </Nav.Link>
+                {getNavLinks()}
+            </Nav>
+        </nav>
     );
 }

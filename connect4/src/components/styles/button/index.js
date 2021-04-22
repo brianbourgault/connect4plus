@@ -14,7 +14,9 @@ export const Button = styled.button`
         font-weight: bold;
         height: 40px;
         justify-content: center;
-        margin: 4px 2px;
+        margin: auto;
+        margin-bottom: 5px;
+        margin-top: 5px;
         min-height: 40px;
         opacity: 0.9;
         padding: 0;

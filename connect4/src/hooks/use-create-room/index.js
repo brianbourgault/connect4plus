@@ -1,8 +1,6 @@
 import { useState } from "react";
-// import { useCurrentUser } from "../use-current-user";
 import { useAuth } from "../../contexts/AuthContext";
 import { db } from "../../firebase";
-import firebase from "../../firebase";
 
 function generateId() {
     let result = "";
@@ -16,7 +14,7 @@ function generateId() {
 }
 
 const useCreateRoom = () => {
-    var currentUser = firebase.auth().currentUser;
+    const { currentUser } = useAuth();
     const [isCreatingRoom, setIsCreatingRoom] = useState(false);
 
     async function createRoom() {

@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useMemo } from "react";
 import { H1 } from "../../../components/styles/h1";
 import { P } from "../../../components/styles/p";
 import { useHistory } from "react-router-dom";
-import { useCurrentUser } from "../../../hooks/use-current-user";
 import useJoinRoom from "../../../hooks/use-join-room";
 import useLeaveRoom from "../../../hooks/use-leave-room";
 import useRoom from "../../../hooks/use-room";

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useContext } from "react";
 import { useHistory } from "react-router-dom";
 import { Button } from "../../components/styles/button";
 import { H1 } from "../../components/styles/h1";
@@ -8,6 +8,7 @@ import validateEmail from "../../helpers/validate-email";
 import { useAuth } from "../../contexts/AuthContext";
 import useSearchParams from "../../hooks/use-search-params";
 import { auth } from "../../firebase";
+import { GlobalContext } from "../../App";
 
 const LoginPage = () => {
     const history = useHistory();
@@ -18,7 +19,7 @@ const LoginPage = () => {
     const [passwordErr, setPasswordErr] = useState();
     const [firebaseErr, setFirebaseErr] = useState();
     const [isLoggingIn, setIsLoggingIn] = useState(false);
-
+    let { user, updateUserSession } = useContext(GlobalContext);
     const { redirect, player } = useSearchParams();
 
     const performRedirect = useCallback(() => {
@@ -45,16 +46,31 @@ const LoginPage = () => {
         setIsLoggingIn(true);
 
         try {
-            await auth.signInWithEmailAndPassword(email, password);
+            let response = await auth.signInWithEmailAndPassword(
+                email,
+                password
+            );
+            localStorage.setItem("authUser", JSON.stringify(response.user));
+            updateUserSession(response.user);
+            console.log("updating user session with data: ", response.user);
             performRedirect();
+            console.log(
+                "current user is ",
+                JSON.parse(localStorage.getItem("authUser"))
+            );
         } catch (err) {
             setFirebaseErr(err.message);
             setIsLoggingIn(false);
+            updateUserSession(null);
         }
     }
 
     function goToSignup() {
         history.push("/signup");
+    }
+
+    function goToForgotPassword() {
+        history.push("/forgot-password");
     }
 
     function goBack() {
@@ -84,8 +100,9 @@ const LoginPage = () => {
             />
             {firebaseErr && <Error>{firebaseErr}</Error>}
             <Button disabled={isLoggingIn} onClick={handleLogin}>
-                Log{isLoggingIn ? "ing" : ""} In
+                Log{isLoggingIn ? "ging" : ""} In
             </Button>
+            <Button onClick={goToForgotPassword}>Forgot Password?</Button>
             <Button onClick={goToSignup}>Signup Instead</Button>
             <Button onClick={goBack}>Back to Home</Button>
         </>

@@ -32,14 +32,11 @@ function getWinningMovesForVelocity(
     newMoves,
     playerTurn
 ) {
-    console.log("made it to check moves for velocity");
-    console.log(xPosition, yPosition, xVelocity, yVelocity);
     let winningMoves = [{ x: xPosition, y: yPosition }];
     for (let delta = 1; delta <= 3; delta += 1) {
         const checkX = xPosition + xVelocity * delta;
         const checkY = yPosition + yVelocity * delta;
         const checkPiece = getPiece(checkX, checkY, newMoves);
-        console.log("checkPiece: " + checkPiece + " playerTurn: " + playerTurn);
 
         if (checkPiece && checkPiece.player === playerTurn) {
             winningMoves.push({ x: checkX, y: checkY });
@@ -51,7 +48,6 @@ function getWinningMovesForVelocity(
         const checkX = xPosition + xVelocity * delta;
         const checkY = yPosition + yVelocity * delta;
         const checkPiece = getPiece(checkX, checkY, newMoves);
-        console.log("checkPiece: " + checkPiece + " playerTurn: " + playerTurn);
 
         if (checkPiece && checkPiece.player === playerTurn) {
             winningMoves.push({ x: checkX, y: checkY });
@@ -59,12 +55,10 @@ function getWinningMovesForVelocity(
             break;
         }
     }
-    console.log(winningMoves);
     return winningMoves;
 }
 
 function getPiece(x, y, newMoves) {
-    console.log(newMoves);
     const list = newMoves.filter((item) => {
         return item.x === x && item.y === y;
     });

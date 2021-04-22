@@ -15,6 +15,8 @@ export const Input = styled.input`
         color: "#282C34";
         height: 40px;
         padding: 0 15px;
+        margin-left: 30vw;
+        margin-right: 30vw;
         &:focus {
             border: solid 2px "#A0E9FD";
             outline: none;
@@ -26,6 +28,7 @@ export const Label = styled.label`
     ${({ error, theme }) => css`
         color: ${error ? "red" : "#282C34"};
         font-weight: bold;
+        margin: auto;
         margin-bottom: 5px;
         padding-left: 10px;
     `}
