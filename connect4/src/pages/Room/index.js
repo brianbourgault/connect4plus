@@ -1,11 +1,9 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-
 import { Button } from "../../components/styles/button";
 import { H1 } from "../../components/styles/h1";
 import useClearBoard from "../../hooks/use-clear-board";
 import useRoom from "../../hooks/use-room";
-
 import Connect4 from "./Board/Connect4Board";
 import PlayerDisplay from "./player-display";
 import { Container } from "./styles";

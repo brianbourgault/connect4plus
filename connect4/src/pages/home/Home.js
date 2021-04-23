@@ -1,11 +1,8 @@
 import React from "react";
 import { Container } from "react-bootstrap";
-import Logout from "../../components/logout/index";
-import { useAuth } from "../../contexts/AuthContext";
-import "./pages.css";
+import "../pages.css";
 
 export default function Home() {
-    const { currentUser } = useAuth();
     return (
         <Container
             className="d-flex align-items-center justify-content-center"
