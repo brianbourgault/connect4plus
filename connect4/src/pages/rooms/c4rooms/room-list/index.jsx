@@ -1,7 +1,7 @@
 import React from "react";
-import { H1 } from "../../../components/styles/h1";
+import { H1 } from "../../../../components/styles/h1";
 import Room from "./room";
-import useRooms from "../../../hooks/use-rooms";
+import useRooms from "../../../../hooks/use-rooms/UseC4Rooms";
 
 const RoomList = () => {
     const { isFetching, rooms } = useRooms();

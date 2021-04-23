@@ -5,12 +5,14 @@ import { AuthProvider } from "./contexts/AuthContext";
 
 //pages
 import Navigation from "./pages/Navbar/Navbar";
-import Room from "./pages/Room";
+import Connect4Room from "./pages/Room/c4-room";
 import Home from "./pages/home/Home";
 import Connect4Home from "./pages/Connect4Home";
-import Rooms from "./pages/rooms";
+import Connect4Rooms from "./pages/rooms/c4rooms";
+import TicTacToeRooms from "./pages/rooms/ttt-rooms";
+import TicTacToeHome from "./pages/TicTacToeHome";
+import TicTacToeRoom from "./pages/Room/ttt-room";
 import Profile from "./pages/profile";
-import TicTacToe from "./pages/tictactoe";
 import Signup from "./pages/Signup/index";
 import Login from "./pages/Login/index";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -35,15 +37,21 @@ export default function App() {
                     <Navigation />
                     <Switch>
                         <Route path="/u/:userId" component={Profile} />
-                        <Route exact path="/r" component={Rooms} />
+                        <Route exact path="/cr" component={Connect4Rooms} />
+                        <Route exact path="/tr" component={TicTacToeRooms} />
                         <Route path="/" component={Home} exact />
                         <Route
                             path="/connectfour"
                             component={Connect4Home}
                             exact
                         />
-                        <Route path="/r/:roomId" component={Room} />
-                        <Route path="/tic-tac-toe" component={TicTacToe} />
+                        <Route
+                            path="/tictactoe"
+                            component={TicTacToeHome}
+                            exact
+                        />
+                        <Route path="/cr/:roomId" component={Connect4Room} />
+                        <Route path="/tr/:roomId" component={TicTacToeRoom} />
                         <Route path="/signup" component={Signup} />
                         <Route path="/login" component={Login} />
                         <Route

@@ -10,10 +10,10 @@ const useLeavePosition = () => {
         setIsLeaving(true);
         try {
             await db
-                .collection("rooms")
+                .collection("ttt-rooms")
                 .doc(roomId)
                 .update({
-                    [player === "Red" ? "playerRedID" : "playerYellowID"]: null,
+                    [player === "Red" ? "playerXID" : "playerOID"]: null,
                 });
         } catch (err) {
             console.error(err);

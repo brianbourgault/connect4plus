@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useParams } from "react-router-dom";
 import { db } from "../../firebase";
-import useRoom from "../../hooks/use-room/index";
+import useRoom from "../../hooks/use-room/UseC4Room";
 import GetUpdatedGameState from "./helpers/get-updated-game-state/index";
 
 const useAddMove = () => {
@@ -20,7 +20,7 @@ const useAddMove = () => {
             newTotalMoves,
         } = GetUpdatedGameState({ moves, x, playerTurn, totalMoves, room });
         try {
-            await db.collection("rooms").doc(roomId).update({
+            await db.collection("c4-rooms").doc(roomId).update({
                 moves: newMoves,
                 isGameFinished: newIsGameDone,
                 message: newMessage,

@@ -2,18 +2,18 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { H1 } from "../components/styles/h1";
 import { Button } from "../components/styles/button";
-import Logout from "../components/logout";
-import useCreateRoom from "../hooks/use-create-room/CreateC4Room";
+import Logout from "../components/logout/index";
+import useCreateRoom from "../hooks/use-create-room/CreateTTTRoom";
 import { useAuth } from "../contexts/AuthContext";
 import "./pages.css";
 
-const Connect4Home = () => {
+const TicTacToeHome = () => {
     const history = useHistory();
     const { currentUser } = useAuth();
     const { createRoom, isCreatingRoom } = useCreateRoom();
 
     function goToJoinRoom() {
-        history.push("/cr");
+        history.push("/tr");
     }
 
     function goToLogin() {
@@ -30,12 +30,12 @@ const Connect4Home = () => {
 
     async function handleCreateRoom() {
         const roomId = await createRoom();
-        history.push(`/cr/${roomId}`);
+        history.push(`/tr/${roomId}`);
     }
 
     return (
         <>
-            <H1>Connect Four Home Page</H1>
+            <H1>TicTacToe Home Page</H1>
             <Button onClick={goToJoinRoom}>Join Room</Button>
             {currentUser ? (
                 <>
@@ -58,4 +58,4 @@ const Connect4Home = () => {
     );
 };
 
-export default Connect4Home;
+export default TicTacToeHome;

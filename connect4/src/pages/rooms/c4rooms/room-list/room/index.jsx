@@ -6,7 +6,7 @@ const Room = ({ id, owner }) => {
     const history = useHistory();
 
     function handleClick() {
-        history.push(`/r/${id}`);
+        history.push(`/cr/${id}`);
     }
 
     return (

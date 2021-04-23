@@ -21,38 +21,38 @@ const useCreateRoom = () => {
         if (!currentUser) return undefined;
 
         setIsCreatingRoom(true);
-        let roomId = currentUser.roomId;
+        let c4RoomId = currentUser.c4RoomId;
 
         try {
-            if (roomId) {
+            if (c4RoomId) {
                 const foundUserRoom = await db
-                    .collection("rooms")
-                    .doc(roomId)
+                    .collection("c4-rooms")
+                    .doc(c4RoomId)
                     .get();
-                if (foundUserRoom.exists) return roomId;
+                if (foundUserRoom.exists) return c4RoomId;
             } else {
                 let newIdGenerated = false;
-                roomId = generateId();
+                c4RoomId = generateId();
 
                 while (!newIdGenerated) {
                     const foundRoom = await db
-                        .collection("rooms")
-                        .doc(roomId)
+                        .collection("c4-rooms")
+                        .doc(c4RoomId)
                         .get();
-                    if (foundRoom.exists) roomId = generateId();
+                    if (foundRoom.exists) c4RoomId = generateId();
                     else newIdGenerated = true;
                 }
 
                 await db
                     .collection("users")
                     .doc(currentUser.uid)
-                    .update({ roomId });
+                    .update({ c4RoomId });
             }
 
             const startingTurn = Math.round(Math.random()) ? "Red" : "Yellow";
             await db
-                .collection("rooms")
-                .doc(roomId)
+                .collection("c4-rooms")
+                .doc(c4RoomId)
                 .set({
                     moves: [],
                     isGameFinished: false,
@@ -66,7 +66,7 @@ const useCreateRoom = () => {
             console.error(err);
         } finally {
             setIsCreatingRoom(false);
-            return roomId;
+            return c4RoomId;
         }
     }
 

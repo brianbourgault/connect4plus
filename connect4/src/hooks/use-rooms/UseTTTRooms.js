@@ -21,12 +21,14 @@ const useRooms = () => {
     );
 
     useEffect(() => {
-        const unsubscribe = db.collection("rooms").onSnapshot((snapshot) => {
-            getRooms(snapshot).then((formattedRooms) => {
-                setRooms(formattedRooms);
-                if (isFetching) setIsFetching(false);
+        const unsubscribe = db
+            .collection("ttt-rooms")
+            .onSnapshot((snapshot) => {
+                getRooms(snapshot).then((formattedRooms) => {
+                    setRooms(formattedRooms);
+                    if (isFetching) setIsFetching(false);
+                });
             });
-        });
 
         return () => {
             unsubscribe();

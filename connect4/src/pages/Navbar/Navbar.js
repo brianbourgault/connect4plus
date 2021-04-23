@@ -80,7 +80,7 @@ export default function Navigation() {
                 <Nav.Link className="nav-links" as={Link} to="/connectfour">
                     Connect 4
                 </Nav.Link>
-                <Nav.Link className="nav-links" as={Link} to="/tic-tac-toe">
+                <Nav.Link className="nav-links" as={Link} to="/tictactoe">
                     Tic Tac Toe
                 </Nav.Link>
                 {getNavLinks()}

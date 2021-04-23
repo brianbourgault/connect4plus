@@ -9,22 +9,19 @@ const useJoinRoom = () => {
     async function joinRoom(player, userId) {
         setIsJoining(true);
         try {
-            const doc = await db.collection("rooms").doc(roomId).get();
+            const doc = await db.collection("ttt-rooms").doc(roomId).get();
             if (doc.exists) {
                 const data = doc.data();
-                if (
-                    data?.playerYellowID === userId ||
-                    data?.playerRedID === userId
-                ) {
+                console.log(data?.playerOID);
+                console.log(userId);
+                if (data?.playerOID === userId || data?.playerXID === userId) {
                     return alert(`You can't join this game more than once!`);
                 }
                 await db
-                    .collection("rooms")
+                    .collection("ttt-rooms")
                     .doc(roomId)
                     .update({
-                        [player === "Red"
-                            ? "playerRedID"
-                            : "playerYellowID"]: userId,
+                        [player === "X" ? "playerXID" : "playerOID"]: userId,
                     });
             }
         } catch (err) {

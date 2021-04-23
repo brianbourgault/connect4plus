@@ -10,7 +10,7 @@ const useRoom = () => {
 
     useEffect(() => {
         const unsubscribe = db
-            .collection("rooms")
+            .collection("ttt-rooms")
             .doc(roomId)
             .onSnapshot((doc) => {
                 if (doc.exists) setRoom({ ...doc.data(), id: doc.id });

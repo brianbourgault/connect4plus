@@ -1,6 +1,6 @@
 import React from "react";
-import { Button } from "../../components/styles/button";
-import { H1 } from "../../components/styles/h1";
+import { Button } from "../../../components/styles/button";
+import { H1 } from "../../../components/styles/h1";
 import RoomList from "./room-list";
 import { useHistory } from "react-router-dom";
 

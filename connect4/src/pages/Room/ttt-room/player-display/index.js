@@ -1,13 +1,13 @@
 import React, { useCallback, useEffect, useMemo } from "react";
-import { H1 } from "../../../components/styles/h1";
-import { P } from "../../../components/styles/p";
+import { H1 } from "../../../../components/styles/h1";
+import { P } from "../../../../components/styles/p";
 import { useHistory } from "react-router-dom";
-import useJoinRoom from "../../../hooks/use-join-room";
-import useLeaveRoom from "../../../hooks/use-leave-room";
-import useRoom from "../../../hooks/use-room";
-import useSearchParams from "../../../hooks/use-search-params";
-import useUser from "../../../hooks/use-user";
-import { useAuth } from "../../../contexts/AuthContext";
+import useJoinRoom from "../../../../hooks/use-join-room/JoinTTTRoom";
+import useLeaveRoom from "../../../../hooks/use-leave-room/LeaveTTTRoom";
+import useRoom from "../../../../hooks/use-room/UseTTTRoom";
+import useSearchParams from "../../../../hooks/use-search-params";
+import useUser from "../../../../hooks/use-user";
+import { useAuth } from "../../../../contexts/AuthContext";
 
 const PlayerDisplay = ({ player }) => {
     const { currentUser } = useAuth();
@@ -18,7 +18,7 @@ const PlayerDisplay = ({ player }) => {
     const { player: search } = useSearchParams();
 
     const playerId = useMemo(
-        () => (player === "Red" ? room?.playerRedID : room?.playerYellowID),
+        () => (player === "X" ? room?.playerXID : room?.playerOID),
         [player, room]
     );
 
@@ -46,6 +46,7 @@ const PlayerDisplay = ({ player }) => {
                     </span>
                 </>
             );
+
         return null;
     }, [currentUser, isLeaving, leaveRoom, player, playerId, room]);
 

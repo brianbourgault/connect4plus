@@ -1,9 +1,9 @@
 import React from "react";
-import { H1 } from "../../../components/styles/h1";
-import "../../../pages/pages.css";
-import useRoom from "../../../hooks/use-room/index";
-import useAddMove from "../../../hooks/use-add-move";
-import { useAuth } from "../../../contexts/AuthContext";
+import { H1 } from "../../../../components/styles/h1";
+import "../../../../pages/pages.css";
+import useRoom from "../../../../hooks/use-room/UseC4Room";
+import useAddMove from "../../../../hooks/use-add-move/index";
+import { useAuth } from "../../../../contexts/AuthContext";
 import { Block, Container, Row } from "./styles";
 
 const Connect4 = () => {
