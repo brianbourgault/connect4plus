@@ -66,7 +66,8 @@ const SignupPage = () => {
                 .doc(response.user.uid)
                 .set({
                     displayName: response.user.email?.split("@")[0],
-                    rating: 1000,
+                    c4Rating: 1000,
+                    tttRating: 1000,
                 });
             history.push("/");
         } catch (ex) {

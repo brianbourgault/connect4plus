@@ -17,7 +17,7 @@ const TicTacToe = () => {
     const { board, playerTurn, isGameFinished, playerXID, playerOID } = room;
 
     async function handleClick(index) {
-        if (!isMarking && !isGameFinished) {
+        if (!isMarking && !board[index] && !isGameFinished) {
             if (
                 (playerTurn === "X" && currentUser?.uid === playerXID) ||
                 (playerTurn === "O" && currentUser?.uid === playerOID)

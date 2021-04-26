@@ -22,6 +22,7 @@ const useMarkBoard = () => {
                 boardIndex,
                 playerTurn,
                 totalMoves,
+                room,
             });
             await db.collection("ttt-rooms").doc(roomId).update({
                 board: newBoard,

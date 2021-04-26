@@ -65,10 +65,12 @@ export default function Navigation() {
 
     return (
         <nav className="nav-item">
-            <Navbar.Brand as={Link} to="/">
-                <h1 className="title">
-                    Board Game Plus<i className="fas fa-chess"></i>
-                </h1>
+            <Navbar.Brand>
+                <Nav.Link as={Link} to="/">
+                    <h1 className="title">
+                        Board Game Plus<i className="fas fa-chess"></i>
+                    </h1>
+                </Nav.Link>
                 <div className="menu-icon" onClick={handleClick}>
                     <i className={clicked ? "fas fa-times" : "fas fa-bars"}></i>
                 </div>

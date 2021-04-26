@@ -11,7 +11,7 @@ const useClearBoard = () => {
         try {
             const newStartingTurn = startingTurn === "X" ? "O" : "X";
             await db
-                .collection("rooms")
+                .collection("ttt-rooms")
                 .doc(roomId)
                 .update({
                     board: [
@@ -25,11 +25,11 @@ const useClearBoard = () => {
                         null,
                         null,
                     ],
-                    isGameDone: false,
+                    isGameFinished: false,
                     message: `${newStartingTurn}'s Turn`,
                     playerTurn: newStartingTurn,
                     startingTurn: newStartingTurn,
-                    turnNumber: 1,
+                    totalMoves: 1,
                 });
         } catch (err) {
             console.error(err);

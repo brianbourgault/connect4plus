@@ -5,10 +5,11 @@ export default function getUpdatedGameState({
     boardIndex,
     playerTurn,
     totalMoves,
+    room,
 }) {
     const newBoard = [...board];
     newBoard[boardIndex] = playerTurn;
-    const outcome = checkBoard({ newBoard, playerTurn, totalMoves });
+    const outcome = checkBoard({ newBoard, playerTurn, totalMoves, room });
 
     let newMessage = "";
     let newIsGameFinished = false;

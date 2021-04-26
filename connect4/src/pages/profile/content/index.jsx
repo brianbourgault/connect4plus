@@ -26,6 +26,32 @@ const Content = ({ user }) => {
 
     return (
         <>
+            {isCurrentUser && (
+                <div
+                    style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        margin: "10px",
+                    }}
+                >
+                    <p>
+                        <b>Connect Four Rating:</b> {Math.floor(user.c4Rating)}
+                    </p>
+                </div>
+            )}
+            {isCurrentUser && (
+                <div
+                    style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        margin: "10px",
+                    }}
+                >
+                    <p>
+                        <b>Tic Tac Toe Rating:</b> {Math.floor(user.tttRating)}
+                    </p>
+                </div>
+            )}
             <Field
                 disabled={!isCurrentUser}
                 id="display-name"
@@ -39,7 +65,6 @@ const Content = ({ user }) => {
                     Updat{isUpdating ? "ing" : "e"}
                 </Button>
             )}
-            {isCurrentUser && <div>Rating: {user.rating}</div>}
         </>
     );
 };

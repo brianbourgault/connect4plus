@@ -8,14 +8,18 @@ export default function Home() {
             className="d-flex align-items-center justify-content-center"
             style={{ minHeight: "75vh" }}
         >
-            <div className="w-100" style={{ maxWidth: "1000px" }}>
+            <div className="w-100" style={{ maxWidth: "1500px" }}>
                 <>
                     <h1>
                         Welcome to the new home of playing board games online!
-                        Here you will be able to play against someone random or
-                        someone you know and your skills will be put to the
-                        test.
                     </h1>
+                    <h3 style={{ marginTop: "50px" }}>
+                        Play either Connect Four or Tic Tac Toe against someone
+                        else. Find a room with your friend or join a random
+                        room. If you win your rating for that game goes up and
+                        if you lose it goes down. View your profile to see your
+                        ratings or change your display name.
+                    </h3>
                 </>
             </div>
         </Container>

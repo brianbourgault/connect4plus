@@ -12,8 +12,6 @@ const useJoinRoom = () => {
             const doc = await db.collection("ttt-rooms").doc(roomId).get();
             if (doc.exists) {
                 const data = doc.data();
-                console.log(data?.playerOID);
-                console.log(userId);
                 if (data?.playerOID === userId || data?.playerXID === userId) {
                     return alert(`You can't join this game more than once!`);
                 }

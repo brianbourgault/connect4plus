@@ -12,7 +12,7 @@ const useClearBoard = () => {
         try {
             const newStartingTurn = startingTurn === "Red" ? "Yellow" : "Red";
             await db
-                .collection("rooms")
+                .collection("c4-rooms")
                 .doc(roomId)
                 .update({
                     moves: [],

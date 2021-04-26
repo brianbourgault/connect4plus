@@ -13,7 +13,7 @@ const RoomsPage = () => {
 
     return (
         <>
-            <H1>Rooms</H1>
+            <H1>Connect Four Rooms</H1>
             <RoomList />
             <Button onClick={handleClick}>Back to Home</Button>
         </>
