@@ -25,5 +25,3 @@ export default function Home() {
         </Container>
     );
 }
-
-//line 15: {currentUser.email}

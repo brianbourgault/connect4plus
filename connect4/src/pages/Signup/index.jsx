@@ -13,12 +13,12 @@ const SignupPage = () => {
     const history = useHistory();
     const { currentUser } = useAuth();
     const [email, setEmail] = useState("");
-    const [emailErr, setEmailErr] = useState();
+    const [emailErr, setEmailErr] = useState("");
     const [password, setPassword] = useState("");
-    const [passwordErr, setPasswordErr] = useState();
+    const [passwordErr, setPasswordErr] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [confirmPasswordErr, setConfirmPasswordErr] = useState();
-    const [firebaseErr, setFirebaseErr] = useState();
+    const [confirmPasswordErr, setConfirmPasswordErr] = useState("");
+    const [firebaseErr, setFirebaseErr] = useState("");
     const [isSigningUp, setIsSigningUp] = useState(false);
     let { user, updateUserSession } = useContext(GlobalContext);
 

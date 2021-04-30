@@ -14,10 +14,10 @@ const LoginPage = () => {
     const history = useHistory();
     const { currentUser } = useAuth();
     const [email, setEmail] = useState("");
-    const [emailErr, setEmailErr] = useState();
+    const [emailErr, setEmailErr] = useState("");
     const [password, setPassword] = useState("");
-    const [passwordErr, setPasswordErr] = useState();
-    const [firebaseErr, setFirebaseErr] = useState();
+    const [passwordErr, setPasswordErr] = useState("");
+    const [firebaseErr, setFirebaseErr] = useState("");
     const [isLoggingIn, setIsLoggingIn] = useState(false);
     let { user, updateUserSession } = useContext(GlobalContext);
     const { redirect, player } = useSearchParams();
