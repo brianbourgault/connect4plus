@@ -37,9 +37,7 @@ const Room = () => {
                     Start{isClearing ? "ing" : ""} New Game
                 </Button>
             ) : (
-                <Button disabled={isClearing} onClick={handleClear}>
-                    Clear{isClearing ? "ing" : ""} Board
-                </Button>
+                <Button disabled>Game In Progress</Button>
             )}
             <Button onClick={goBack}>Back to Home</Button>
         </Container>

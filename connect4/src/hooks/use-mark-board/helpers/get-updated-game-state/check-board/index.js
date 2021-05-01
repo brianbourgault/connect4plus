@@ -1,6 +1,5 @@
 import checkWin from "./check-win";
 import { db } from "../../../../../firebase";
-import useRoom from "../../../../use-room/UseTTTRoom";
 
 export default function checkBoard({ newBoard, playerTurn, totalMoves, room }) {
     if (totalMoves >= 5) {
