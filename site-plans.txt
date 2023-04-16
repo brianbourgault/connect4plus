@@ -1,8 +1,9 @@
 Next steps for the website:
 
 -Add elo leaderboard
--make a better home page
 -add matchmaking based on elo rating
--make the site prettier
+-make a better home page
+-make the site look better
 -add more user profile customization (username, name, profile pic, etc.)
 -completely rewrite the backend to be my own and use my own databases, servers, hosting, etc.
+-add more games
